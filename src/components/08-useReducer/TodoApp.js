@@ -11,17 +11,67 @@ const initialState = [
 ];
 
 const TodoApp = () => {
-  const [state] = useReducer(todoReducer, initialState);
-  console.log(state);
+  const [todos, dispatch] = useReducer(todoReducer, initialState);
+
+  // console.log(todos);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`nueva tarea`);
+
+    const newTodo = {
+      id: new Date().getTime(),
+      description: "Aprender Angular",
+      done: false,
+    };
+
+    const action = {
+      type: "ADD",
+      payload: newTodo,
+    };
+
+    dispatch(action);
+  };
+
   return (
     <div>
-      <h1>TodoApp</h1>
+      <h1>TodoApp ({todos.length})</h1>
       <hr />
-      <ul>
-        <li>Hola</li>
-        <li>Mundo</li>
-        <li>Hola de nuevo</li>
-      </ul>
+
+      <div className="row">
+        <div className="col-7">
+          <ul className="list-group list-group-flush">
+            {todos.map(({ id, description, done }, i) => (
+              <li className="list-group-item" key={id}>
+                <p className="text-center">
+                  {done ? "✔" : "❌"} {i + 1}. {description}
+                </p>
+
+                <button className="btn btn-danger">Borrar</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="col-5">
+          <h4>Agregar TODO</h4>
+          <hr />
+
+          <form className="d-grid gap-2" onSubmit={handleSubmit}>
+            <input
+              autoComplete="off"
+              className="form-control"
+              name="description"
+              placeholder="aprender..."
+              type="text"
+            />
+
+            <button className="btn btn-outline-primary mt-1" type="submit">
+              Agregar
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
