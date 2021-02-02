@@ -37,9 +37,25 @@ const TodoApp = () => {
     dispatch(action);
     reset();
   };
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+
+  const handleDelete = (id) => {
+    const action = {
+      type: "DELETE",
+      payload: id,
+    };
+
+    dispatch(action);
+  };
+
+  const handleToggle = (id) => {
+    const action = { type: "TOGGLE", payload: id };
+
+    dispatch(action);
+  };
 
   return (
     <div>
@@ -51,11 +67,23 @@ const TodoApp = () => {
           <ul className="list-group list-group-flush">
             {todos.map(({ id, description, done }, i) => (
               <li className="list-group-item" key={id}>
-                <p className="text-center">
+                <p
+                  className={`${done && "complete"}`}
+                  onClick={() => {
+                    handleToggle(id);
+                  }}
+                >
                   {done ? "✔" : "❌"} {i + 1}. {description}
                 </p>
 
-                <button className="btn btn-danger">Borrar</button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    handleDelete(id);
+                  }}
+                >
+                  Borrar
+                </button>
               </li>
             ))}
           </ul>
