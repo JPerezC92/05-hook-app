@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import useForm from "../../hooks/useForm";
 import "./style.css";
+import TodoList from "./TodoList";
 import { todoReducer } from "./todoReducer";
 
 const init = (initialState) => {
@@ -23,70 +24,41 @@ const TodoApp = () => {
       return;
     }
 
-    const newTodo = {
-      id: new Date().getTime(),
-      description: description,
-      done: false,
-    };
-
-    const action = {
+    dispatch({
       type: "ADD",
-      payload: newTodo,
-    };
+      payload: {
+        id: new Date().getTime(),
+        description: description,
+        done: false,
+      },
+    });
 
-    dispatch(action);
     reset();
   };
+
+  const handleDelete = (id) =>
+    dispatch({
+      type: "DELETE",
+      payload: id,
+    });
+
+  const handleToggle = (id) => dispatch({ type: "TOGGLE", payload: id });
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  const handleDelete = (id) => {
-    const action = {
-      type: "DELETE",
-      payload: id,
-    };
-
-    dispatch(action);
-  };
-
-  const handleToggle = (id) => {
-    const action = { type: "TOGGLE", payload: id };
-
-    dispatch(action);
-  };
-
   return (
     <div>
       <h1>TodoApp ({todos.length})</h1>
       <hr />
-
       <div className="row">
         <div className="col-7">
-          <ul className="list-group list-group-flush">
-            {todos.map(({ id, description, done }, i) => (
-              <li className="list-group-item" key={id}>
-                <p
-                  className={`${done && "complete"}`}
-                  onClick={() => {
-                    handleToggle(id);
-                  }}
-                >
-                  {done ? "✔" : "❌"} {i + 1}. {description}
-                </p>
-
-                <button
-                  className="btn btn-danger"
-                  onClick={() => {
-                    handleDelete(id);
-                  }}
-                >
-                  Borrar
-                </button>
-              </li>
-            ))}
-          </ul>
+          <TodoList
+            todos={todos}
+            handleToggle={handleToggle}
+            handleDelete={handleDelete}
+          />
         </div>
 
         <div className="col-5">
