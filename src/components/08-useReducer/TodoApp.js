@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer } from "react";
-import useForm from "../../hooks/useForm";
-import "./style.css";
+import TodoAdd from "./TodoAdd";
 import TodoList from "./TodoList";
 import { todoReducer } from "./todoReducer";
+import "./style.css";
 
 const init = (initialState) => {
   return JSON.parse(localStorage.getItem("todos")) || initialState;
@@ -13,27 +13,11 @@ const initialState = [];
 const TodoApp = () => {
   const [todos, dispatch] = useReducer(todoReducer, initialState, init);
 
-  const [{ description }, handleInputChange, reset] = useForm({
-    description: "",
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (description.trim().length <= 1) {
-      return;
-    }
-
+  const handleAdd = (newTodo) => {
     dispatch({
       type: "ADD",
-      payload: {
-        id: new Date().getTime(),
-        description: description,
-        done: false,
-      },
+      payload: newTodo,
     });
-
-    reset();
   };
 
   const handleDelete = (id) =>
@@ -62,24 +46,7 @@ const TodoApp = () => {
         </div>
 
         <div className="col-5">
-          <h4>Agregar TODO</h4>
-          <hr />
-
-          <form className="d-grid gap-2" onSubmit={handleSubmit}>
-            <input
-              autoComplete="off"
-              className="form-control"
-              name="description"
-              onChange={handleInputChange}
-              placeholder="aprender..."
-              type="text"
-              value={description}
-            />
-
-            <button className="btn btn-outline-primary mt-1" type="submit">
-              Agregar
-            </button>
-          </form>
+          <TodoAdd handleAdd={handleAdd} />
         </div>
       </div>
     </div>
