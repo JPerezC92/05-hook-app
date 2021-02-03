@@ -13,14 +13,16 @@ import NavBar from "./NavBar";
 const AppRouter = () => {
   return (
     <Router>
-      <NavBar />
       <div>
-        <Switch>
-          <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/about" component={AboutScreen} />
-          <Route exact path="/login" component={LoginScreen} />
-          <Redirect to="./" />
-        </Switch>
+        <NavBar />
+        <div className="container">
+          <Switch>
+            <Route exact path="/" component={HomeScreen} />
+            <Route exact path="/about" component={AboutScreen} />
+            <Route exact path="/login" component={LoginScreen} />
+            <Redirect to="./" />
+          </Switch>
+        </div>
       </div>
     </Router>
   );

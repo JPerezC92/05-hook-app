@@ -2,15 +2,15 @@ import React, { useContext } from "react";
 import UserContext from "./UserContext";
 
 const HomeScreen = () => {
-  const userContext = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  console.log(userContext);
+  console.log(user);
   return (
     <div>
       <h1>HomeScreen</h1>
       <hr />
 
-      <p>{userContext.email}</p>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
   );
 };
