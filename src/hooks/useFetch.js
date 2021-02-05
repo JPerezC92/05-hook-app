@@ -22,7 +22,14 @@ const useFetch = (url) => {
         if (isMounted.current) {
           setState({ data, loading: false, error: null });
         }
-      });
+      })
+      .catch(() =>
+        setState({
+          data: null,
+          loading: false,
+          error: "No se pudo cargar la informacion",
+        })
+      );
 
     setState((prevState) => ({ ...prevState, loading: true }));
   }, [url]);
