@@ -1,6 +1,6 @@
 export const demoTodos = [
-  { id: 1, todo: "Aprender React", done: false },
-  { id: 2, todo: "Aprender Angular", done: false },
+  { id: 1, description: "Aprender React", done: false },
+  { id: 2, description: "Aprender Angular", done: false },
 ];
 
-export const newTodo = { id: 3, todo: "Aprender Vue", done: false };
+export const newTodo = { id: 3, description: "Aprender Vue", done: false };
