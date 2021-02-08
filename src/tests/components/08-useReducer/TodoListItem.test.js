@@ -46,7 +46,6 @@ describe("Pruebas en el componente <TodoListItem />", () => {
     const todo = demoTodos[0];
     todo.done = true;
     const wrapper = shallow(<TodoListItem {...todo} i={0} />);
-
     const parrafo = wrapper.find("p");
 
     expect(parrafo.hasClass("complete")).toBe(true);
