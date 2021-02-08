@@ -1,7 +1,8 @@
 import React from "react";
 import useForm from "../../hooks/useForm";
+import PropTypes from "prop-types";
 
-const TodoAdd = React.memo(({ handleAdd }) => {
+const TodoAdd = ({ handleAdd }) => {
   const [{ description }, handleInputChange, reset] = useForm({
     description: "",
   });
@@ -42,6 +43,10 @@ const TodoAdd = React.memo(({ handleAdd }) => {
       </form>
     </>
   );
-});
+};
+
+TodoAdd.propTypes = {
+  handleAdd: PropTypes.func.isRequired,
+};
 
 export default TodoAdd;
