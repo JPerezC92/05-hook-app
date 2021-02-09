@@ -26,20 +26,16 @@ describe("Pruebas en el componente <TodoAdd />", () => {
     const value = "Aprender Firebase";
     const input = wrapper.find("input");
 
-    act(() => {
-      input.simulate("change", {
-        target: {
-          value: value,
-          name: "description",
-        },
-      });
+    input.simulate("change", {
+      target: {
+        value: value,
+        name: "description",
+      },
     });
 
     const formSubmit = wrapper.find("form").prop("onSubmit");
 
-    act(() => {
-      formSubmit({ preventDefault() {} });
-    });
+    formSubmit({ preventDefault() {} });
 
     expect(handleAdd).toHaveBeenCalledTimes(1);
     expect(handleAdd).toHaveBeenCalledWith(expect.any(Object));
