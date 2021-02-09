@@ -1,13 +1,13 @@
 import { mount } from "enzyme";
-import LoginScreen from "../../../components/09-useContext/LoginScreen";
+import AboutScreen from "../../../components/09-useContext/AboutScreen";
 import UserContext from "../../../components/09-useContext/UserContext";
 
-describe("Pruebas en el componente <LoginScreen />", () => {
+describe("Pruebas en el componente <AboutScreen />", () => {
   const setUser = jest.fn();
 
   const wrapper = mount(
     <UserContext.Provider value={{ setUser }}>
-      <LoginScreen />
+      <AboutScreen />
     </UserContext.Provider>
   );
 
@@ -18,10 +18,7 @@ describe("Pruebas en el componente <LoginScreen />", () => {
   test("Debe de llamarse setUser con el argumento esperado", () => {
     wrapper.find("button").simulate("click");
 
-    expect(setUser).toHaveBeenCalledWith({
-      id: 54654765,
-      name: "Philip",
-      email: "jpereaz@gmail.com",
-    });
+    expect(setUser).toHaveBeenCalledTimes(1);
+    expect(setUser).toHaveBeenCalledWith({});
   });
 });
